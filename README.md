@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Current Setup
+
+This project is supposed to have the OHIF client as well as a new DICOMweb Cloud provider.
+
+# Initial setup
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
