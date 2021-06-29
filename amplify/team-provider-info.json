@@ -14,6 +14,16 @@
     "categories": {
       "auth": {
         "ohifclouddicomweb0afa0ba0": {}
+      },
+      "function": {
+        "wadoForward": {
+          "deploymentBucketName": "amplify-amplifyd0ceefc19fa94-staging-125627-deployment",
+          "s3Key": "amplify-builds/wadoForward-35345a6951487252596e-build.zip"
+        },
+        "ohifclouddicomwebdicomWebLambdaLayer": {
+          "deploymentBucketName": "amplify-amplifyd0ceefc19fa94-staging-125627-deployment",
+          "s3Key": "amplify-builds/ohifclouddicomwebdicomWebLambdaLayer-LambdaLayerVersion93cc4abb-build.zip"
+        }
       }
     }
   }
