@@ -46,6 +46,12 @@
     "categories": {
       "auth": {
         "ohifclouddicomweb0afa0ba0": {}
+      },
+      "function": {
+        "qidoProxyLambda": {
+          "deploymentBucketName": "amplify-ohifclouddicomweb-dev-163252-deployment",
+          "s3Key": "amplify-builds/qidoProxyLambda-574b6e49315a3841416e-build.zip"
+        }
       }
     }
   }

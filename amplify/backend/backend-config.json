@@ -25,5 +25,11 @@
   },
   "api": {},
   "storage": {},
-  "function": {}
+  "function": {
+    "qidoProxyLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  }
 }
