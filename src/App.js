@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { API, Storage } from 'aws-amplify';
+import { API } from 'aws-amplify';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import { listStudys } from './graphql/queries';
 import { createStudy as createStudyMutation, deleteStudy as deleteStudyMutation, updateStudy as updateStudyMutation } from './graphql/mutations';

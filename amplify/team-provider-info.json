@@ -23,7 +23,29 @@
         "ohifclouddicomwebdicomWebLambdaLayer": {
           "deploymentBucketName": "amplify-amplifyd0ceefc19fa94-staging-125627-deployment",
           "s3Key": "amplify-builds/ohifclouddicomwebdicomWebLambdaLayer-LambdaLayerVersion93cc4abb-build.zip"
+        },
+        "qidoForwardLambda": {
+          "deploymentBucketName": "amplify-amplifyd0ceefc19fa94-staging-125627-deployment",
+          "s3Key": "amplify-builds/qidoForwardLambda-574470764c4c57335278-build.zip"
         }
+      }
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ohifclouddicomweb-dev-163252-authRole",
+      "UnauthRoleArn": "arn:aws:iam::744036437957:role/amplify-ohifclouddicomweb-dev-163252-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::744036437957:role/amplify-ohifclouddicomweb-dev-163252-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-ohifclouddicomweb-dev-163252-deployment",
+      "UnauthRoleName": "amplify-ohifclouddicomweb-dev-163252-unauthRole",
+      "StackName": "amplify-ohifclouddicomweb-dev-163252",
+      "StackId": "arn:aws:cloudformation:us-east-2:744036437957:stack/amplify-ohifclouddicomweb-dev-163252/2f4123a0-d919-11eb-bab4-0a4b7596b37e",
+      "AmplifyAppId": "d1dkd3viu9okbk"
+    },
+    "categories": {
+      "auth": {
+        "ohifclouddicomweb0afa0ba0": {}
       }
     }
   }
