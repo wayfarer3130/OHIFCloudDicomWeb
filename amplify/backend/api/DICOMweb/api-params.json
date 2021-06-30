@@ -1,0 +1,35 @@
+{
+  "paths": [
+    {
+      "name": "/studies",
+      "lambdaFunction": "qidoProxyLambda",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/studies"
+    }
+  ],
+  "resourceName": "DICOMweb",
+  "apiName": "DICOMweb",
+  "functionArns": [
+    {
+      "lambdaFunction": "qidoProxyLambda"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-ohifclouddicomweb-dev-163252-authRole",
+    "unAuthRoleName": "amplify-ohifclouddicomweb-dev-163252-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "qidoProxyLambda",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}

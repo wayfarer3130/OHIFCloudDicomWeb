@@ -23,7 +23,22 @@
       ]
     }
   },
-  "api": {},
+  "api": {
+    "DICOMweb": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "qidoProxyLambda",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
+    }
+  },
   "storage": {},
   "function": {
     "qidoProxyLambda": {
