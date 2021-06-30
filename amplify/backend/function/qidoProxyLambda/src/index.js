@@ -1,4 +1,4 @@
-
+const studiesJson = require('./studies.json');
 
 exports.handler = async (event) => {
     // TODO implement
@@ -9,7 +9,7 @@ exports.handler = async (event) => {
     //      "Access-Control-Allow-Origin": "*",
     //      "Access-Control-Allow-Headers": "*"
     //  }, 
-        body: JSON.stringify('QIDO from Lambda!'),
+        body: JSON.stringify(studiesJson),
     };
     return response;
 };
