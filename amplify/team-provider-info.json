@@ -45,7 +45,8 @@
     },
     "categories": {
       "auth": {
-        "ohifclouddicomweb0afa0ba0": {}
+        "ohifclouddicomweb0afa0ba0": {},
+        "userPoolGroups": {}
       },
       "function": {
         "qidoProxyLambda": {
