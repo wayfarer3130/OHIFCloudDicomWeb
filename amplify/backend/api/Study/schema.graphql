@@ -1,0 +1,5 @@
+type Study @model {
+  id: ID!
+  studyUID: String!
+  json: String
+}
