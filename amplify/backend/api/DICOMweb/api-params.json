@@ -7,6 +7,14 @@
                 "open": true
             },
             "policyResourceName": "/dcmjs/studies"
+        },
+        {
+            "name": "/notFound",
+            "lambdaFunction": "qidoProxyLambda",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/notFound"
         }
     ],
     "resourceName": "DICOMweb",
@@ -32,5 +40,5 @@
             ]
         }
     ],
-    "uuid": "56ad4caa"
+    "uuid": "37d035d1"
 }

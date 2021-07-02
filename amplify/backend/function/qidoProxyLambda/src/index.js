@@ -1,26 +1,45 @@
 const https = require('https');
-
    
 async function remoteQuery(url) {
-  let dataString='';
   const queryData = await new Promise((resolve, reject) => {
     const req = https.get(url, function(res) {
-      res.on('data', chunk => {
-        dataString += chunk;
+       res.setEncoding('binary');
+       let chunks = [];        
+       res.on('data', (chunk) => {
+            chunks.push(Buffer.from(chunk, 'binary'));
+       });
+        
+       res.on('end', () => {
+          let binary = Buffer.concat(chunks);
+          const contentType = res.headers && res.headers['content-type'];
+          // Query binary if it is not JSON or if it is multipart/related - need to fix related xml types as well
+          if( contentType && (contentType.indexOf('json')===-1 || contentType.indexOf('multipart')!==-1) ) {
+            const base64 = binary.toString('base64');
+            console.log('Base64', base64.length, binary.length, base64);
+            resolve({
+              statusCode: 200,
+              headers: {...CORS_HEADERS, 'Content-Type':contentType},
+              body: base64,
+              isBase64Encoded: "True",
+            });
+          } else {
+            const text = binary.toString();
+            console.log('Text version=', text);
+            resolve({
+              statusCode: 200,
+              headers: {...CORS_HEADERS, 'Content-Type':contentType},
+              body: text,
+            });
+          }
+          
       });
-      res.on('end', () => {
+
+      req.on('error', (e) => {
         resolve({
-            statusCode: 200,
-            body: dataString,
+            statusCode: 500,
+            internalError: e,
+            body: 'Something went wrong:'+e
         });
-      });
-    });
-    
-    req.on('error', (e) => {
-      resolve({
-          statusCode: 500,
-          internalError: e,
-          body: 'Something went wrong:'+e
       });
     });
   });
@@ -78,6 +97,10 @@ exports.handler = async (event) => {
     const queryData = await remoteQuery(url);
     let response;
     if( queryData.statusCode===200 ) {
+        if( queryData.isBase64Encoded ) {
+            console.log('Response is base 64 encoded, returning:', JSON.stringify(queryData));
+            return queryData;
+        }
         let jsonData = JSON.parse(queryData.body);
         let body = jsonData.map( item => mapHttpPrefix(item,domainName,stage+'/dcmjs') );
         if( body.length>0 ) {
