@@ -1,4 +1,11 @@
-const https = require('https');
+/* Amplify Params - DO NOT EDIT
+	API_STUDY_GRAPHQLAPIIDOUTPUT
+	API_STUDY_STUDYTABLE_ARN
+	API_STUDY_STUDYTABLE_NAME
+	ENV
+	REGION
+	STORAGE_MERKLETREE_BUCKETNAME
+Amplify Params - DO NOT EDIT */const https = require('https');
    
 async function remoteQuery(url) {
   const queryData = await new Promise((resolve, reject) => {
@@ -15,19 +22,19 @@ async function remoteQuery(url) {
           // Query binary if it is not JSON or if it is multipart/related - need to fix related xml types as well
           if( contentType && (contentType.indexOf('json')===-1 || contentType.indexOf('multipart')!==-1) ) {
             const base64 = binary.toString('base64');
-            console.log('Base64', base64.length, binary.length, base64);
+            console.log('Base64', base64.length, binary.length, contentType);
             resolve({
               statusCode: 200,
-              headers: {...CORS_HEADERS, 'Content-Type':contentType},
+              headers: {...CORS_HEADERS, 'content-type':contentType},
               body: base64,
               isBase64Encoded: true,
             });
           } else {
             const text = binary.toString();
-            console.log('Text version=', text);
+            console.log('Text response',contentType);
             resolve({
               statusCode: 200,
-              headers: {...CORS_HEADERS, 'Content-Type':contentType},
+              headers: {...CORS_HEADERS, 'content-type':contentType},
               body: text,
             });
           }
@@ -84,7 +91,7 @@ function addQuery(path, multiValueQueryStringParameters, domainName, stage) {
 }
 
 const CORS_HEADERS = { 
-    'Content-Type': 'application/json',
+    'content-type': 'application/json',
     'Access-Control-Allow-Origin': '*' // Your origin name
 };
 
@@ -93,12 +100,12 @@ exports.handler = async (event) => {
     const {domainName,stage} = requestContext || {};
     const queryWithPath = addQuery(path,multiValueQueryStringParameters);
     const url = 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs' + queryWithPath;
-    console.debug('url=',url,'domainName', domainName, 'stage',stage);
+    console.debug('event=',JSON.stringify(event));
     const queryData = await remoteQuery(url);
     let response;
     if( queryData.statusCode===200 ) {
         if( queryData.isBase64Encoded ) {
-            console.log('Response is base 64 encoded, returning:', JSON.stringify(queryData));
+            console.log('Response is base 64 encoded');
             return queryData;
         }
         let jsonData = JSON.parse(queryData.body);
@@ -107,7 +114,9 @@ exports.handler = async (event) => {
             // Not quite legal DICOM, but seems to be accepted generally
             body[0]['00031010'] = {vr: "UN", Value: [url, JSON.stringify(event)] };
         }
-        response = {body:JSON.stringify(body,null,4), statusCode:200, headers: CORS_HEADERS};
+        const strBody = JSON.stringify(body,null,4);
+        console.log('Response is text encoded', strBody.length)
+        response = {body: strBody, statusCode:200, headers: CORS_HEADERS};
     } else {
         response = {body:'Something went wrong queryData='+JSON.stringify(queryData), statusCode: queryData.statusCode || 500};
     }

@@ -1,3 +1,19 @@
 {
-  "lambdaLayers": []
+  "lambdaLayers": [],
+  "permissions": {
+    "storage": {
+      "MerkleTree": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "Study:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
 }
