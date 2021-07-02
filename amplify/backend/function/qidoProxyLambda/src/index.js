@@ -20,7 +20,7 @@ async function remoteQuery(url) {
               statusCode: 200,
               headers: {...CORS_HEADERS, 'Content-Type':contentType},
               body: base64,
-              isBase64Encoded: "True",
+              isBase64Encoded: true,
             });
           } else {
             const text = binary.toString();
