@@ -55,7 +55,12 @@
       }
     }
   },
-  "storage": {},
+  "storage": {
+    "MerkleTree": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
+  },
   "function": {
     "qidoProxyLambda": {
       "build": true,

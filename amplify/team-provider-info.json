@@ -51,7 +51,7 @@
       "function": {
         "qidoProxyLambda": {
           "deploymentBucketName": "amplify-ohifclouddicomweb-dev-163252-deployment",
-          "s3Key": "amplify-builds/qidoProxyLambda-43366e7133644d324c33-build.zip"
+          "s3Key": "amplify-builds/qidoProxyLambda-50714b7233576c77467a-build.zip"
         }
       }
     }
