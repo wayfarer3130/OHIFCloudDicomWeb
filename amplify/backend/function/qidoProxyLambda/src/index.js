@@ -64,6 +64,11 @@ function addQuery(path, multiValueQueryStringParameters, domainName, stage) {
     return path;
 }
 
+const CORS_HEADERS = { 
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*' // Your origin name
+};
+
 exports.handler = async (event) => {
     const { multiValueQueryStringParameters, path, requestContext } = event;
     const {domainName,stage} = requestContext || {};
@@ -79,7 +84,7 @@ exports.handler = async (event) => {
             // Not quite legal DICOM, but seems to be accepted generally
             body[0]['00031010'] = {vr: "UN", Value: [url, JSON.stringify(event)] };
         }
-        response = {body:JSON.stringify(body,null,4), statusCode:200};
+        response = {body:JSON.stringify(body,null,4), statusCode:200, headers: CORS_HEADERS};
     } else {
         response = {body:'Something went wrong queryData='+JSON.stringify(queryData), statusCode: queryData.statusCode || 500};
     }
