@@ -92,11 +92,17 @@ function addQuery(path, multiValueQueryStringParameters, domainName, stage) {
 
 const CORS_HEADERS = { 
     'content-type': 'application/json',
+    'Access-Control-Allow-Headers': '*',
     'Access-Control-Allow-Origin': '*' // Your origin name
 };
 
 exports.handler = async (event) => {
-    const { multiValueQueryStringParameters, path, requestContext } = event;
+    const { multiValueQueryStringParameters, path, requestContext, httpMethod } = event;
+    if( httpMethod==="OPTIONS" || httpMethod==="options" ) {
+      console.log("httpMethod is options, returning CORS query");
+      return {headers: CORS_HEADERS, body: '', statusCode:204};
+    }
+    console.log("httpMethod is", httpMethod);
     const {domainName,stage} = requestContext || {};
     const queryWithPath = addQuery(path,multiValueQueryStringParameters);
     const url = 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs' + queryWithPath;
@@ -114,7 +120,7 @@ exports.handler = async (event) => {
             // Not quite legal DICOM, but seems to be accepted generally
             body[0]['00031010'] = {vr: "UN", Value: [url, JSON.stringify(event)] };
         }
-        const strBody = JSON.stringify(body,null,4);
+        const strBody = JSON.stringify(body);
         console.log('Response is text encoded', strBody.length)
         response = {body: strBody, statusCode:200, headers: CORS_HEADERS};
     } else {
