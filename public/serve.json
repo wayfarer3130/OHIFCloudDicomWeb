@@ -1,0 +1,6 @@
+{
+	"cleanUrls": false,
+"rewrites": [
+    { "source": "ohif", "destination": "/ohif.html" }
+  ]
+}
